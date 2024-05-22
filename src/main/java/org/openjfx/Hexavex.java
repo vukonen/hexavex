@@ -17,8 +17,8 @@ public final class Hexavex extends Application {
 
     @Override
     public final void start(final Stage stage) throws IOException {
-        final AnchorPane anchorPane = FXMLLoader.load(Hexavex.class.getResource("/hexavex.fxml"));
-        final Scene scene = new Scene(anchorPane);
+        final AnchorPane gameAnchorPane = FXMLLoader.load(Hexavex.class.getResource("/hexavex.fxml"));
+        final Scene scene = new Scene(gameAnchorPane);
 
         stage.setTitle(Hexavex.TITLE);
         stage.setScene(scene);

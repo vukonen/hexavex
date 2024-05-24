@@ -22,6 +22,7 @@ public final class Hexavex extends Application {
 
         stage.setTitle(Hexavex.TITLE);
         stage.setScene(scene);
+
         stage.show();
     }
 }

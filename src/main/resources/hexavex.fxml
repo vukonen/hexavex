@@ -14,28 +14,10 @@
             <Font name="DejaVu Sans Bold" size="72.0" />
          </font>
       </Text>
-      <AnchorPane layoutX="20.0" layoutY="95.0" prefHeight="850.0" prefWidth="850.0">
+      <AnchorPane fx:id="grid" layoutX="20.0" layoutY="95.0" prefHeight="850.0" prefWidth="850.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="OLDLACE" height="850.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="850.0" />
-            <Polygon fill="WHITE" layoutX="224.0" layoutY="-16.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="85.436" layoutY="-16.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="362.564" layoutY="-16.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="16.154" layoutY="104.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="154.718" layoutY="104.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="293.282" layoutY="104.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="431.846" layoutY="104.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="-53.128" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="85.436" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="224.0" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="362.564" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="501.128" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="16.154" layoutY="344.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="154.718" layoutY="344.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="293.382" layoutY="344.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="431.846" layoutY="344.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="85.436" layoutY="464.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="224.0" layoutY="464.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-            <Polygon fill="WHITE" layoutX="362.564" layoutY="464.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+            <Polygon fx:id="template" fill="WHITE" layoutX="224.0" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
          </children>
       </AnchorPane>
       <Rectangle fx:id="shelf" arcHeight="5.0" arcWidth="5.0" fill="OLDLACE" height="925.0" layoutX="888.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="372.0" />

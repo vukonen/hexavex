@@ -1,6 +1,8 @@
 package org.openjfx;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -12,14 +14,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class Controller implements Initializable {
-    private static final Random RANDOM = new Random();
-    private static final int HEX_COUNT = 19;
-    private static final int SIDE_COUNT = 6;
-    private static final int DIGIT_COUNT = 10;
-    private static final double HEX_RADIUS = 75.0;
-    private static final double HEX_STROKE_WIDTH = 2.0;
+public final class Controller implements Initializable {
+    static final int SIDE_COUNT = 6;
 
+    private static final Random RANDOM = new Random();
+    private static final int GRID_RADIUS = 2;
+    private static final int TILE_COUNT = 19;
+    private static final int DIGIT_COUNT = 10;
+
+    private final Map<Coordinate, Cell> cellsByCoordinates = new HashMap<>();
     private double mouseAnchorX = 0.0;
     private double mouseAnchorY = 0.0;
 
@@ -27,11 +30,19 @@ public class Controller implements Initializable {
     private AnchorPane game;
 
     @FXML
+    private AnchorPane grid;
+
+    @FXML
     private Rectangle shelf;
+
+    @FXML
+    private Polygon template;
 
 	@Override
 	public final void initialize(final URL url, ResourceBundle resourceBundle) {
-        for (int i = 0; i < Controller.HEX_COUNT; ++i) {
+        this.createGrid();
+
+        for (int i = 0; i < Controller.TILE_COUNT; ++i) {
             final Group group = new Group();
 
             group.setOnMousePressed(mouseEvent -> {
@@ -44,30 +55,30 @@ public class Controller implements Initializable {
                 group.setLayoutY(mouseEvent.getSceneY() - this.mouseAnchorY);
             });
 
-            final double cx = this.shelf.getLayoutX() + Controller.HEX_RADIUS + Controller.RANDOM.nextDouble()
-                * (this.shelf.getWidth() - 2.0 * Controller.HEX_RADIUS);
-            final double cy = this.shelf.getLayoutY() + Controller.HEX_RADIUS + Controller.RANDOM.nextDouble()
-                * (this.shelf.getHeight() - 2.0 * Controller.HEX_RADIUS);
+            final double cx = this.shelf.getLayoutX() + Tile.RADIUS + Controller.RANDOM.nextDouble()
+                * (this.shelf.getWidth() - 2.0 * Tile.RADIUS);
+            final double cy = this.shelf.getLayoutY() + Tile.RADIUS + Controller.RANDOM.nextDouble()
+                * (this.shelf.getHeight() - 2.0 * Tile.RADIUS);
 
             double angle = 2.0 * Math.PI * (Controller.SIDE_COUNT - 1) / Controller.SIDE_COUNT;
             double px = cx;
             double py = cy;
-            double qx = cx + Controller.HEX_RADIUS * Math.sin(angle);
-            double qy = cy + Controller.HEX_RADIUS * Math.cos(angle);
+            double qx = cx + Tile.RADIUS * Math.sin(angle);
+            double qy = cy + Tile.RADIUS * Math.cos(angle);
 
             for (int j = 0; j < Controller.SIDE_COUNT; ++j) {
                 angle = 2.0 * Math.PI * j / Controller.SIDE_COUNT;
                 px = qx;
                 py = qy;
-                qx = cx + Controller.HEX_RADIUS * Math.sin(angle);
-                qy = cy + Controller.HEX_RADIUS * Math.cos(angle);
+                qx = cx + Tile.RADIUS * Math.sin(angle);
+                qy = cy + Tile.RADIUS * Math.cos(angle);
 
                 final Polygon triangle = new Polygon(cx, cy, px, py, qx, qy);
                 final int digit = Controller.RANDOM.nextInt(Controller.DIGIT_COUNT);
 
                 triangle.setFill(Controller.getTriangleColor(digit));
                 triangle.setStroke(Color.BLACK);
-                triangle.setStrokeWidth(Controller.HEX_STROKE_WIDTH);
+                triangle.setStrokeWidth(Tile.STROKE_WIDTH);
 
                 group.getChildren().add(triangle);
             }
@@ -75,6 +86,45 @@ public class Controller implements Initializable {
             this.game.getChildren().add(group);
         }
 	}
+
+    private final void createGrid() {
+        final double cx = this.template.getLayoutX();
+        final double cy = this.template.getLayoutY();
+
+        for (int q = -Controller.GRID_RADIUS; q <= Controller.GRID_RADIUS; ++q) {
+            final int a = Math.max(-Controller.GRID_RADIUS, -q - Controller.GRID_RADIUS);
+            final int b = Math.min(Controller.GRID_RADIUS, -q + Controller.GRID_RADIUS);
+
+            for (int r = a; r <= b; ++r) {
+                final Coordinate coordinate = new Coordinate(q, r, -q - r);
+                final Polygon polygon = new Polygon();
+
+                this.grid.getChildren().add(polygon);
+
+                polygon.getPoints().addAll(this.template.getPoints());
+                polygon.setLayoutX(cx + Cell.RADIUS * (Math.sqrt(3.0) * q + Math.sqrt(3.0) / 2.0 * r));
+                polygon.setLayoutY(cy + Cell.RADIUS * 3.0 / 2.0 * r);
+                polygon.setFill(Color.WHITE);
+                polygon.setStroke(Color.BLACK);
+                polygon.setStrokeWidth(Cell.STROKE_WIDTH);
+
+                final Cell cell = new Cell(coordinate, polygon);
+
+                this.cellsByCoordinates.put(coordinate, cell);
+            }
+        }
+
+        for (final Map.Entry<Coordinate, Cell> entry : this.cellsByCoordinates.entrySet()) {
+            final Coordinate[] neighborCoordinates = entry.getKey().getNeighborCoordinates();
+            final Cell[] neighbors = new Cell[Controller.SIDE_COUNT];
+
+            for (int i = 0; i < Controller.SIDE_COUNT; ++i) {
+                neighbors[i] = this.cellsByCoordinates.get(neighborCoordinates[i]);
+            }
+
+            entry.getValue().setNeighbors(neighbors);
+        }
+    }
 
     private static final Color getTriangleColor(final int digit) {
         switch (digit) {

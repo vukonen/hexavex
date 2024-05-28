@@ -17,7 +17,7 @@
       <AnchorPane fx:id="grid" layoutX="20.0" layoutY="95.0" prefHeight="850.0" prefWidth="850.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="OLDLACE" height="850.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="850.0" />
-            <Polygon fx:id="template" fill="WHITE" layoutX="224.0" layoutY="224.0" points="200.0, 280.0, 269.282032, 240.0, 269.282032, 160.0, 200.0, 120.0, 130.717968, 160.0, 130.717968, 240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+            <Polygon fx:id="template" fill="WHITE" layoutX="425.0" layoutY="425.0" points="0.0, 80.0, 69.282032, 40.0, 69.282032, -40.0, 0.0, -80.0, -69.282032, -40.0, -69.282032, 40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
          </children>
       </AnchorPane>
       <Rectangle fx:id="shelf" arcHeight="5.0" arcWidth="5.0" fill="OLDLACE" height="925.0" layoutX="888.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="372.0" />

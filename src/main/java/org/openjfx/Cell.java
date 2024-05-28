@@ -18,7 +18,23 @@ final class Cell {
         this.tile = null;
     }
 
+    final Polygon getPolygon() {
+        return this.polygon;
+    }
+
+    final Cell[] getNeighbors() {
+        return this.neighbors;
+    }
+
+    final Tile getTile() {
+        return this.tile;
+    }
+
 	final void setNeighbors(final Cell[] neighbors) {
 		this.neighbors = neighbors;
 	}
+
+    final void setTile(final Tile tile) {
+        this.tile = tile;
+    }
 }

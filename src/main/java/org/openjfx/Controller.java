@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -41,6 +42,9 @@ public final class Controller implements Initializable {
 
     @FXML
     private Polygon template;
+
+    @FXML
+    private Button button;
 
     private static final Color getTriangleColor(final int digit) {
         switch (digit) {
@@ -95,6 +99,22 @@ public final class Controller implements Initializable {
         this.createCells();
         this.createTiles();
         this.createDigits();
+
+        this.button.setOnMousePressed(mouseEvent -> {
+            for (final Map.Entry<Tile, Cell> entry : this.cellsByTiles.entrySet()) {
+                final Tile tile = entry.getKey();
+                final Cell cell = entry.getValue();
+
+                this.game.getChildren().remove(tile.getGroup());
+                cell.setTile(null);
+            }
+
+            this.cellsByTiles.clear();
+
+            this.check();
+            this.createTiles();
+            this.createDigits();
+        });
 	}
 
     private final void createCells() {

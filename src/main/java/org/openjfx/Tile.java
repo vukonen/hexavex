@@ -42,6 +42,10 @@ final class Tile {
         return this.digits;
     }
 
+    final Cell getCell() {
+        return this.cell;
+    }
+
     final void setCell(final Cell cell) {
         this.cell = cell;
     }

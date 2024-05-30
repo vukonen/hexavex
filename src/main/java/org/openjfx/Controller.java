@@ -18,6 +18,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public final class Controller implements Initializable {
     static final int SIDE_COUNT = 6;
@@ -32,19 +33,25 @@ public final class Controller implements Initializable {
     private double mouseAnchorY = 0.0;
 
     @FXML
-    private AnchorPane game;
+    private AnchorPane mainAnchorPane;
 
     @FXML
-    private AnchorPane grid;
+    private AnchorPane cellAnchorPane;
 
     @FXML
-    private Rectangle shelf;
+    private Rectangle tileRectangle;
 
     @FXML
-    private Polygon template;
+    private Polygon templatePolygon;
 
     @FXML
-    private Button button;
+    private Button newButton;
+
+    @FXML
+    private Button solveButton;
+
+    @FXML
+    private Text congratulationsText;
 
     private static final Color getTriangleColor(final int digit) {
         switch (digit) {
@@ -100,12 +107,12 @@ public final class Controller implements Initializable {
         this.createTiles();
         this.createDigits();
 
-        this.button.setOnMousePressed(mouseEvent -> {
+        this.newButton.setOnMousePressed(mouseEvent -> {
             for (final Map.Entry<Tile, Cell> entry : this.cellsByTiles.entrySet()) {
                 final Tile tile = entry.getKey();
                 final Cell cell = entry.getValue();
 
-                this.game.getChildren().remove(tile.getGroup());
+                this.mainAnchorPane.getChildren().remove(tile.getGroup());
                 cell.setTile(null);
             }
 
@@ -115,11 +122,15 @@ public final class Controller implements Initializable {
             this.createTiles();
             this.createDigits();
         });
+
+        this.solveButton.setOnMousePressed(mouseEvent -> {
+            this.solve();
+        });
 	}
 
     private final void createCells() {
-        final double cx = this.template.getLayoutX();
-        final double cy = this.template.getLayoutY();
+        final double cx = this.templatePolygon.getLayoutX();
+        final double cy = this.templatePolygon.getLayoutY();
 
         for (int q = -Controller.GRID_RADIUS; q <= Controller.GRID_RADIUS; ++q) {
             final int a = Math.max(-Controller.GRID_RADIUS, -q - Controller.GRID_RADIUS);
@@ -129,9 +140,9 @@ public final class Controller implements Initializable {
                 final Coordinate coordinate = new Coordinate(q, r, -q - r);
                 final Polygon polygon = new Polygon();
 
-                this.grid.getChildren().add(polygon);
+                this.cellAnchorPane.getChildren().add(polygon);
 
-                polygon.getPoints().addAll(this.template.getPoints());
+                polygon.getPoints().addAll(this.templatePolygon.getPoints());
                 polygon.setLayoutX(cx + Cell.RADIUS * (Math.sqrt(3.0) * q + Math.sqrt(3.0) / 2.0 * r));
                 polygon.setLayoutY(cy + Cell.RADIUS * 3.0 / 2.0 * r);
                 polygon.setFill(Color.WHITE);
@@ -184,10 +195,12 @@ public final class Controller implements Initializable {
                 polygons[j] = polygon;
             }
 
-            final double lx = this.shelf.getLayoutX() + Tile.RADIUS + Controller.RANDOM.nextDouble()
-                * (this.shelf.getWidth() - 2.0 * Tile.RADIUS);
-            final double ly = this.shelf.getLayoutY() + Tile.RADIUS + Controller.RANDOM.nextDouble()
-                * (this.shelf.getHeight() - 2.0 * Tile.RADIUS);
+            this.mainAnchorPane.getChildren().add(group);
+
+            final double lx = this.tileRectangle.getLayoutX() + Tile.RADIUS + Controller.RANDOM.nextDouble()
+                * (this.tileRectangle.getWidth() - 2.0 * Tile.RADIUS);
+            final double ly = this.tileRectangle.getLayoutY() + Tile.RADIUS + Controller.RANDOM.nextDouble()
+                * (this.tileRectangle.getHeight() - 2.0 * Tile.RADIUS);
 
             group.setLayoutX(lx);
             group.setLayoutY(ly);
@@ -195,8 +208,6 @@ public final class Controller implements Initializable {
             final Tile tile = new Tile(group, polygons);
 
             this.setTileMouseEventHandlers(tile, group);
-
-            this.game.getChildren().add(group);
             this.cellsByTiles.put(tile, cell);
         }
     }
@@ -309,6 +320,8 @@ public final class Controller implements Initializable {
     }
 
     private final void check() {
+        int count = 0;
+
         for (final Cell cell : this.cellsByCoordinates.values()) {
             final Cell[] neighbors = cell.getNeighbors();
             final Polygon polygon = cell.getPolygon();
@@ -344,7 +357,14 @@ public final class Controller implements Initializable {
 
             if (j == Controller.SIDE_COUNT) {
                 polygon.setFill(Color.GREEN);
+                ++count;
             }
+        }
+
+        if (count < this.cellsByCoordinates.size()) {
+            this.congratulationsText.setVisible(false);
+        } else {
+            this.congratulationsText.setVisible(true);
         }
     }
 
@@ -358,8 +378,10 @@ public final class Controller implements Initializable {
 
             final Group group = tile.getGroup();
 
-            group.setLayoutX(this.grid.getLayoutX() + cell.getPolygon().getLayoutX());
-            group.setLayoutY(this.grid.getLayoutY() + cell.getPolygon().getLayoutY());
+            group.setLayoutX(this.cellAnchorPane.getLayoutX() + cell.getPolygon().getLayoutX());
+            group.setLayoutY(this.cellAnchorPane.getLayoutY() + cell.getPolygon().getLayoutY());
         }
+
+        this.check();
     }
 }

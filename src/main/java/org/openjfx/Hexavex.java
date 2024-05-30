@@ -24,5 +24,7 @@ public final class Hexavex extends Application {
         stage.setScene(scene);
 
         stage.show();
+
+        stage.setResizable(false);
     }
 }
